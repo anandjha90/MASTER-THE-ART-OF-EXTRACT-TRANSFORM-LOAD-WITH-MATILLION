@@ -1,5 +1,5 @@
-# MASTER-DATA-ANALYTICS-USING-CLOUD-TECHNOLOGIES-ML
-This repository contains all the files and information about Master Data Analytics Course
+# 
+This repository contains all the files and information about Mastering an ETL Tool - Matillion
 
 Hello Everyone 👨‍💻👩‍💻 !! 
 Welcome back to ANALYTICSWITHANAND
