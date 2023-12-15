@@ -6,7 +6,7 @@ Welcome back to ANALYTICSWITHANAND
 
 I WELCOME YOU ALL INTO THE WORLD OF ANALYTICS📊
 
-So finally the much-awaited course for all the Data Engineering folks to MASTER one of the HIDDEN GEM in the Data Engineering world, a tool for TRANSFORM, EXTRACT & LOAD which offers a wide range of CLOUD CONNECTIVITY - MATILLION is here for you all with flat 50% OFF at just INR 499 or 6$ in just 30 DAYS.
+So finally the much-awaited course for all the Data Engineering folks to MASTER one of the HIDDEN GEM in the Data Engineering world, a tool for TRANSFORM, EXTRACT & LOAD which offers a wide range of CLOUD CONNECTIVITY - MATILLION is here for you all ABSOLUTELY FREE
 
 Yessssss you heard it right and am bringing you this course just to take your Data Engineering Skills to the next level.
 
@@ -46,15 +46,14 @@ Features :
       -> Dedicated support 24x7 by mentors
       -> Hand on Real Industry Projects from expert Faculty
 
-So, If you want to master the concepts of EXTRACT, TRANSFORM & LOAD using MATILLION then you are one step away from grabbing this OFFER in FLAT INR 499
-
+So, If you want to master the concepts of EXTRACT, TRANSFORM & LOAD using MATILLION then you are one step away from grabbing this BY ENROLLING on ANALYTICDSWITHANAND
 
 For any Queries kindly reach us on :-
  📧 info@analyticswithanand.in 
  📞 +918618800846
- 🎓 Syllabus and course content :  Scan the QR Code in the Content Section
+ 🎓 www.analyticswithanand.in
 
-Let Data Drive Your Success! 👉 Join Today! 🌟 And Grab 50% Discount.
+Let Data Drive Your Success! 👉 Join Today! 
 
 HURRY UP !! 
 ENROLL NOW !!
