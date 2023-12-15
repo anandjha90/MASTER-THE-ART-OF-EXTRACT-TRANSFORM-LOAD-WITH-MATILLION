@@ -1,0 +1,35 @@
+menu_item_id,item_name,category,price
+101,Hamburger,American,12.95
+102,Cheeseburger,American,13.95
+101,Hamburger,American,12.95
+102,Cheeseburger,American,13.95
+103,Hot Dog,American,9
+104,Veggie Burger,American,10.5
+105,Mac & Cheese,American,7
+106,French Fries,American,7
+107,Orange Chicken,Asian,16.5
+108,Tofu Pad Thai,Asian,14.5
+109,Korean Beef Bowl,Asian,17.95
+110,Pork Ramen,Asian,17.95
+111,California Roll,Asian,11.95
+112,Salmon Roll,Asian,14.95
+113,Edamame,Asian,5
+114,Potstickers,Asian,9
+115,Chicken Tacos,Mexican,11.95
+116,Steak Tacos,Mexican,13.95
+117,Chicken Burrito,Mexican,12.95
+118,Steak Burrito,Mexican,14.95
+119,Chicken Torta,Mexican,11.95
+120,Steak Torta,Mexican,13.95
+121,Cheese Quesadillas,Mexican,10.5
+122,Chips & Salsa,Mexican,7
+123,Chips & Guacamole,Mexican,9
+124,Spaghetti,Italian,14.5
+125,Spaghetti & Meatballs,Italian,17.95
+126,Fettuccine Alfredo,Italian,14.5
+127,Meat Lasagna,Italian,17.95
+128,Cheese Lasagna,Italian,15.5
+129,Mushroom Ravioli,Italian,15.5
+130,Shrimp Scampi,Italian,19.95
+131,Chicken Parmesan,Italian,17.95
+132,Eggplant Parmesan,Italian,16.95
