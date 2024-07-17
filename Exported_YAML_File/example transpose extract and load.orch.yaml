@@ -1,0 +1,720 @@
+type: "orchestration"
+version: "1.0"
+pipeline:
+  components:
+    Start:
+      type: "start"
+      transitions:
+        unconditional:
+        - "Recreate stg_batteryelectric_wide"
+      parameters:
+        componentName: "Start"
+    Recreate stg_batteryelectric_wide:
+      type: "create-table"
+      transitions:
+        success:
+        - "S3 Load"
+      parameters:
+        componentName: "Recreate stg_batteryelectric_wide"
+        createReplace: "Replace"
+        database: "[Environment Default]"
+        schema: "[Environment Default]"
+        newTableName: "stg_batteryelectric_wide"
+        tableType: "Permanent"
+        columns:
+        - - "Make"
+          - "VARCHAR"
+          - "40"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "Model"
+          - "VARCHAR"
+          - "256"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2022 Q3"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2022 Q2"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2022 Q1"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2021 Q4"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2021 Q3"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2021 Q2"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2021 Q1"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2020 Q4"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2020 Q3"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2020 Q2"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2020 Q1"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2019 Q4"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2019 Q3"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2019 Q2"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2019 Q1"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2018 Q4"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2018 Q3"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2018 Q2"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2018 Q1"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2017 Q4"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2017 Q3"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2017 Q2"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2017 Q1"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2016 Q4"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2016 Q3"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2016 Q2"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2016 Q1"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2015 Q4"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2015 Q3"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2015 Q2"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2015 Q1"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2014 Q4"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2014 Q3"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2014 Q2"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2014 Q1"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2013 Q4"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2013 Q3"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2013 Q2"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2013 Q1"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2012 Q4"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2012 Q3"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2012 Q2"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2012 Q1"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2011 Q4"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2011 Q3"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2011 Q2"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2011 Q1"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2010 Q4"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2010 Q3"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2010 Q2"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        - - "2010 Q1"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+        defaultDdlCollation:
+        primaryKeys:
+        clusteringKeys:
+        dataRetentionTimeInDays:
+        comment:
+    Set prvt_cols_dq:
+      type: "query-to-scalar"
+      transitions:
+        success:
+        - "Set prvt_cols_sq"
+      parameters:
+        componentName: "Set prvt_cols_dq"
+        mode: "Advanced"
+        query: "SELECT ARRAY_TO_STRING(ARRAY_AGG('\"' || COLUMN_NAME || '\"') WITHIN\
+          \ GROUP (ORDER BY ORDINAL_POSITION ASC), ',') AS QCOLS\r\nFROM INFORMATION_SCHEMA.COLUMNS\r\
+          \nWHERE TABLE_NAME = 'stg_batteryelectric_wide'\r\nAND COLUMN_NAME LIKE\
+          \ '%Q%'"
+        scalarVariableMapping:
+        - - "prvt_cols_dq"
+          - "QCOLS"
+    Print Variables:
+      type: "print-variables"
+      transitions:
+        success:
+        - "Run example transpose transformation 1 wide to narrow"
+      parameters:
+        componentName: "Print Variables"
+        variablesToPrint:
+        - - "prvt_cols_dq"
+        - - "prvt_cols_sq"
+        - - "prvt_pivot_aliases"
+        prefixText:
+        includeVariableName: "No"
+    Run example transpose transformation 1 wide to narrow:
+      type: "run-transformation"
+      transitions:
+        success:
+        - "Run example transpose transformation 2 narrow to wide"
+      parameters:
+        componentName: "Run example transpose transformation 1 wide to narrow"
+        transformationJob: "Matillion Exchange/Snowflake/Transposing/example transpose\
+          \ transformation 1 wide to narrow"
+        setScalarVariables:
+        - - "jv_col_list"
+          - "${prvt_cols_dq}"
+    S3 Load:
+      type: "s3-load"
+      transitions:
+        success:
+        - "Assert Table"
+      parameters:
+        componentName: "S3 Load"
+        stage: "[Custom]"
+        authentication: "Credentials"
+        s3ObjectPrefix: "s3://devrel.matillion.com"
+        pattern: "data/structured/EV/BatteryElectric.tsv"
+        encryption: "None"
+        warehouse: "[Environment Default]"
+        database: "[Environment Default]"
+        schema: "[Environment Default]"
+        targetTable: "stg_batteryelectric_wide"
+        loadColumns:
+        format: "[Custom]"
+        fileType: "CSV"
+        compression: "AUTO"
+        recordDelimiter:
+        fieldDelimiter: "\\t"
+        skipHeader: "1"
+        skipBlankLines: "False"
+        dateFormat:
+        timeFormat:
+        timestampFormat:
+        escape:
+        escapeUnenclosedField:
+        trimSpace: "False"
+        fieldOptionallyEnclosed:
+        nullIf:
+        errorOnColumnCountMismatch: "False"
+        emptyFieldAsNull: "True"
+        replaceInvalidCharacters: "False"
+        encodingType:
+        onError: "Abort Statement"
+        sizeLimitB:
+        purgeFiles: "False"
+        truncateColumns: "False"
+        forceLoad: "False"
+    Assert Table:
+      type: "assert-table"
+      transitions:
+        success:
+        - "Set prvt_cols_dq"
+      parameters:
+        componentName: "Assert Table"
+        database: "[Environment Default]"
+        schema: "[Environment Default]"
+        tableName: "stg_batteryelectric_wide"
+        exists: "Yes"
+        tableMetadata:
+        rowCountComparisonType: "Equal To"
+        rowCountValue: "116"
+    Run example transpose transformation 2 narrow to wide:
+      type: "run-transformation"
+      parameters:
+        componentName: "Run example transpose transformation 2 narrow to wide"
+        transformationJob: "Matillion Exchange/Snowflake/Transposing/example transpose\
+          \ transformation 2 narrow to wide"
+        setScalarVariables:
+        - - "jv_col_list"
+          - "${prvt_cols_sq}"
+        - - "jv_pivot_aliases"
+          - "${prvt_pivot_aliases}"
+    Set prvt_cols_sq:
+      type: "query-to-scalar"
+      transitions:
+        success:
+        - "Set prvt_pivot_aliases"
+      parameters:
+        componentName: "Set prvt_cols_sq"
+        mode: "Advanced"
+        query: "SELECT ARRAY_TO_STRING(ARRAY_AGG('''' || COLUMN_NAME || '''') WITHIN\
+          \ GROUP (ORDER BY ORDINAL_POSITION ASC), ',') AS QCOLS\r\nFROM INFORMATION_SCHEMA.COLUMNS\r\
+          \nWHERE TABLE_NAME = 'stg_batteryelectric_wide'\r\nAND COLUMN_NAME LIKE\
+          \ '%Q%'"
+        scalarVariableMapping:
+        - - "prvt_cols_sq"
+          - "QCOLS"
+    Set prvt_pivot_aliases:
+      type: "query-to-scalar"
+      transitions:
+        success:
+        - "Print Variables"
+      parameters:
+        componentName: "Set prvt_pivot_aliases"
+        mode: "Advanced"
+        query: "SELECT ARRAY_TO_STRING(ARRAY_AGG('COUNT_' || REPLACE(UPPER(COLUMN_NAME),\
+          \ ' ', '_') ) WITHIN GROUP (ORDER BY ORDINAL_POSITION ASC), ',') AS QCOLS\r\
+          \nFROM INFORMATION_SCHEMA.COLUMNS\r\nWHERE TABLE_NAME = 'stg_batteryelectric_wide'\r\
+          \nAND COLUMN_NAME LIKE '%Q%'"
+        scalarVariableMapping:
+        - - "prvt_pivot_aliases"
+          - "QCOLS"
+  variables:
+    prvt_cols_dq:
+      metadata:
+        type: "TEXT"
+        description: "List of columns to unpivot, comma separated, enclosed in double\
+          \ quotes"
+        scope: "COPIED"
+        visibility: "PRIVATE"
+      defaultValue: ""
+    prvt_cols_sq:
+      metadata:
+        type: "TEXT"
+        description: "Column list, comma separated, enclosed in single quotes"
+        scope: "COPIED"
+        visibility: "PRIVATE"
+      defaultValue: ""
+    prvt_pivot_aliases:
+      metadata:
+        type: "TEXT"
+        description: "Pivot column alias names, comma separated, no quotes"
+        scope: "COPIED"
+        visibility: "PRIVATE"
+      defaultValue: ""
+design:
+  components:
+    Start:
+      position:
+        x: -470
+        "y": 0
+      tempMetlId: 1
+    Recreate stg_batteryelectric_wide:
+      position:
+        x: -320
+        "y": 0
+      tempMetlId: 2
+    Set prvt_cols_dq:
+      position:
+        x: 80
+        "y": 10
+      tempMetlId: 3
+    Print Variables:
+      position:
+        x: 460
+        "y": 0
+      tempMetlId: 4
+    Run example transpose transformation 1 wide to narrow:
+      position:
+        x: 630
+        "y": 0
+      tempMetlId: 5
+    S3 Load:
+      position:
+        x: -210
+        "y": 0
+      tempMetlId: 6
+    Assert Table:
+      position:
+        x: -100
+        "y": 0
+      tempMetlId: 7
+    Run example transpose transformation 2 narrow to wide:
+      position:
+        x: 910
+        "y": 0
+      tempMetlId: 8
+    Set prvt_cols_sq:
+      position:
+        x: 190
+        "y": -30
+      tempMetlId: 10
+    Set prvt_pivot_aliases:
+      position:
+        x: 310
+        "y": 30
+      tempMetlId: 11
+  notes:
+    "1":
+      position:
+        x: 540
+        "y": -80
+      size:
+        height: 208
+        width: 240
+      theme: "white"
+      content: "Run the wide-to-narrow transpose transformation"
+    "2":
+      position:
+        x: -380
+        "y": -80
+      size:
+        height: 208
+        width: 380
+      theme: "white"
+      content: "Colocate and check the source data"
+    "3":
+      position:
+        x: 820
+        "y": -80
+      size:
+        height: 208
+        width: 240
+      theme: "white"
+      content: "Run the narrow-to-wide transpose transformations"
+    "4":
+      position:
+        x: 30
+        "y": -120
+      size:
+        height: 298
+        width: 390
+      theme: "white"
+      content: "Set the private pipeline variables for the UNPOVOT and PIVOT transformations"
+    "5":
+      position:
+        x: -750
+        "y": -380
+      size:
+        height: 258
+        width: 640
+      theme: "light-green"
+      content: |
+        A demonstration of techniques for transposing (pivoting) data between wide and narrow representations.
+
+        The sample data is from this [assessment of the UK's Electric Vehicle infrastructure](https://www.matillion.com/blog/an-assessment-of-the-uk-s-electric-vehicle-infrastructure)
+
+        After running this pipeline you should find four new database tables:
+
+        - stg_batteryelectric_wide (the original sample data)
+        - stg_batteryelectric_narrow (unpivoted)
+        - stg_batteryelectric_make (re-pivoted by make and model)
+        - stg_batteryelectric_make_model (re-pivoted and summed by make only)

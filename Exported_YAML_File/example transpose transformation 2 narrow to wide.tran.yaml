@@ -1,0 +1,160 @@
+type: "transformation"
+version: "1.0"
+pipeline:
+  components:
+    stg_batteryelectric_narrow:
+      type: "table-input"
+      parameters:
+        componentName: "stg_batteryelectric_narrow"
+        database: "[Environment Default]"
+        schema: "[Environment Default]"
+        targetTable: "stg_batteryelectric_narrow"
+        columnNames:
+        - "Make"
+        - "Model"
+        - "Quarter"
+        - "Vehicles"
+        timeOffset:
+    PIVOT - narrow to wide:
+      type: "sql"
+      sources:
+      - "stg_batteryelectric_narrow"
+      parameters:
+        componentName: "PIVOT - narrow to wide"
+        query: "SELECT * \r\nFROM ($T{stg_batteryelectric_narrow}) \r\nPIVOT (\r\n\
+          \        SUM(\"Vehicles\") \r\n        FOR \"Quarter\" IN (${jv_col_list})\
+          \ \r\n      )\r\nAS P (MAKE, MODEL, ${jv_pivot_aliases})"
+    PIVOT - Make Only:
+      type: "sql"
+      sources:
+      - "Remove Model"
+      parameters:
+        componentName: "PIVOT - Make Only"
+        query: "SELECT * \r\nFROM ($T{Remove Model}) \r\nPIVOT (\r\n        SUM(\"\
+          Vehicles\") \r\n        FOR \"Quarter\" IN (${jv_col_list}) \r\n      )\r\
+          \nAS P (MAKE, ${jv_pivot_aliases})"
+    Remove Model:
+      type: "rename"
+      sources:
+      - "stg_batteryelectric_narrow"
+      parameters:
+        componentName: "Remove Model"
+        columnMapping:
+        - - "Make"
+          - "Make"
+        - - "Quarter"
+          - "Quarter"
+        - - "Vehicles"
+          - "Vehicles"
+        includeInputColumns: "No"
+    Rewrite stg_batteryelectric_make_model:
+      type: "rewrite-table"
+      sources:
+      - "PIVOT - narrow to wide"
+      parameters:
+        componentName: "Rewrite stg_batteryelectric_make_model"
+        warehouse: "[Environment Default]"
+        database: "[Environment Default]"
+        schema: "[Environment Default]"
+        targetTable: "stg_batteryelectric_make_model"
+        orderBy:
+    Rewrite stg_batteryelectric_make:
+      type: "rewrite-table"
+      sources:
+      - "PIVOT - Make Only"
+      parameters:
+        componentName: "Rewrite stg_batteryelectric_make"
+        warehouse: "[Environment Default]"
+        database: "[Environment Default]"
+        schema: "[Environment Default]"
+        targetTable: "stg_batteryelectric_make"
+        orderBy:
+  variables:
+    jv_col_list:
+      metadata:
+        type: "TEXT"
+        description: "Column list, comma separated, enclosed in single quotes"
+        scope: "COPIED"
+        visibility: "PUBLIC"
+      defaultValue: ""
+    jv_pivot_aliases:
+      metadata:
+        type: "TEXT"
+        description: "Pivot column alias names, comma separated, no quotes"
+        scope: "COPIED"
+        visibility: "PUBLIC"
+      defaultValue: ""
+design:
+  components:
+    stg_batteryelectric_narrow:
+      position:
+        x: 330
+        "y": 150
+      tempMetlId: 1
+    PIVOT - narrow to wide:
+      position:
+        x: 590
+        "y": 50
+      tempMetlId: 2
+    PIVOT - Make Only:
+      position:
+        x: 750
+        "y": 250
+      tempMetlId: 3
+    Remove Model:
+      position:
+        x: 590
+        "y": 250
+      tempMetlId: 4
+    Rewrite stg_batteryelectric_make_model:
+      position:
+        x: 820
+        "y": 50
+      tempMetlId: 5
+    Rewrite stg_batteryelectric_make:
+      position:
+        x: 1000
+        "y": 250
+      tempMetlId: 6
+  notes:
+    "1":
+      position:
+        x: 210
+        "y": 60
+      size:
+        height: 178
+        width: 240
+      theme: "white"
+      content: "This table was created by the wide-to-narrow transformation"
+    "2":
+      position:
+        x: -210
+        "y": -50
+      size:
+        height: 118
+        width: 330
+      theme: "white"
+      content: |-
+        These are examples of transposing from **narrow** to **wide**
+
+        I.e. **rows** to **columns** (a PIVOT)
+    "3":
+      position:
+        x: 510
+        "y": -40
+      size:
+        height: 178
+        width: 230
+      theme: "white"
+      content: |-
+        This pivot is by Make and Model.
+        Expecting 116 rows
+    "4":
+      position:
+        x: 670
+        "y": 160
+      size:
+        height: 198
+        width: 230
+      theme: "white"
+      content: "This pivot is by Make only. Expecting only 47 rows"

@@ -1,0 +1,199 @@
+type: "transformation"
+version: "1.0"
+pipeline:
+  components:
+    stg_batteryelectric_wide:
+      type: "table-input"
+      parameters:
+        componentName: "stg_batteryelectric_wide"
+        database: "[Environment Default]"
+        schema: "[Environment Default]"
+        targetTable: "stg_batteryelectric_wide"
+        columnNames:
+        - "Make"
+        - "Model"
+        - "2022 Q3"
+        - "2022 Q2"
+        - "2022 Q1"
+        - "2021 Q4"
+        - "2021 Q3"
+        - "2021 Q2"
+        - "2021 Q1"
+        - "2020 Q4"
+        - "2020 Q3"
+        - "2020 Q2"
+        - "2020 Q1"
+        - "2019 Q4"
+        - "2019 Q3"
+        - "2019 Q2"
+        - "2019 Q1"
+        - "2018 Q4"
+        - "2018 Q3"
+        - "2018 Q2"
+        - "2018 Q1"
+        - "2017 Q4"
+        - "2017 Q3"
+        - "2017 Q2"
+        - "2017 Q1"
+        - "2016 Q4"
+        - "2016 Q3"
+        - "2016 Q2"
+        - "2016 Q1"
+        - "2015 Q4"
+        - "2015 Q3"
+        - "2015 Q2"
+        - "2015 Q1"
+        - "2014 Q4"
+        - "2014 Q3"
+        - "2014 Q2"
+        - "2014 Q1"
+        - "2013 Q4"
+        - "2013 Q3"
+        - "2013 Q2"
+        - "2013 Q1"
+        - "2012 Q4"
+        - "2012 Q3"
+        - "2012 Q2"
+        - "2012 Q1"
+        - "2011 Q4"
+        - "2011 Q3"
+        - "2011 Q2"
+        - "2011 Q1"
+        - "2010 Q4"
+        - "2010 Q3"
+        - "2010 Q2"
+        - "2010 Q1"
+        timeOffset:
+    UNPIVOT - wide to narrow:
+      type: "sql"
+      sources:
+      - "stg_batteryelectric_wide"
+      parameters:
+        componentName: "UNPIVOT - wide to narrow"
+        query: "SELECT *\r\nFROM $T{stg_batteryelectric_wide}\r\nUNPIVOT (\"Vehicles_String\"\
+          \ FOR \"Quarter\" IN (${jv_col_list}))\r\nORDER BY \"Make\", \"Model\",\
+          \ \"Quarter\""
+    Calculator:
+      type: "calculator"
+      sources:
+      - "UNPIVOT - wide to narrow"
+      parameters:
+        componentName: "Calculator"
+        includeInputColumns: "Yes"
+        calculations:
+        - - "TRY_TO_NUMBER(\"Vehicles_String\", '999,999,999')"
+          - "Vehicles"
+    Filter:
+      type: "filter"
+      sources:
+      - "Calculator"
+      parameters:
+        componentName: "Filter"
+        filterConditions:
+        - - "Vehicles"
+          - "Not"
+          - "Null"
+          - ""
+        combineCondition: "And"
+    Rename:
+      type: "rename"
+      sources:
+      - "Filter"
+      parameters:
+        componentName: "Rename"
+        columnMapping:
+        - - "Make"
+          - "Make"
+        - - "Model"
+          - "Model"
+        - - "Quarter"
+          - "Quarter"
+        - - "Vehicles"
+          - "Vehicles"
+        includeInputColumns: "No"
+    Rewrite stg_batteryelectric_narrow:
+      type: "rewrite-table"
+      sources:
+      - "Rename"
+      parameters:
+        componentName: "Rewrite stg_batteryelectric_narrow"
+        warehouse: "[Environment Default]"
+        database: "[Environment Default]"
+        schema: "[Environment Default]"
+        targetTable: "stg_batteryelectric_narrow"
+        orderBy:
+  variables:
+    jv_col_list:
+      metadata:
+        type: "TEXT"
+        description: "List of columns to unpivot, comma separated, enclosed in double\
+          \ quotes"
+        scope: "COPIED"
+        visibility: "PUBLIC"
+      defaultValue: ""
+design:
+  components:
+    stg_batteryelectric_wide:
+      position:
+        x: 520
+        "y": 170
+      tempMetlId: 1
+    UNPIVOT - wide to narrow:
+      position:
+        x: 730
+        "y": 170
+      tempMetlId: 2
+    Calculator:
+      position:
+        x: 950
+        "y": 170
+      tempMetlId: 3
+    Filter:
+      position:
+        x: 1080
+        "y": 170
+      tempMetlId: 4
+    Rename:
+      position:
+        x: 1220
+        "y": 170
+      tempMetlId: 5
+    Rewrite stg_batteryelectric_narrow:
+      position:
+        x: 1410
+        "y": 170
+      tempMetlId: 6
+  notes:
+    "1":
+      position:
+        x: 640
+        "y": 80
+      size:
+        height: 208
+        width: 220
+      theme: "white"
+      content: "116 rows x 51 quarters = 5916 rows in the narrow layout"
+    "2":
+      position:
+        x: 920
+        "y": 80
+      size:
+        height: 208
+        width: 380
+      theme: "white"
+      content: |-
+        Remove values that are not numbers.
+
+        Should leave 1,928 rows
+    "3":
+      position:
+        x: 250
+        "y": 20
+      size:
+        height: 118
+        width: 320
+      theme: "white"
+      content: |-
+        This is a transpose from **wide** to **narrow**
+
+        I.e. **columns** to **rows** (an UNPIVOT)
