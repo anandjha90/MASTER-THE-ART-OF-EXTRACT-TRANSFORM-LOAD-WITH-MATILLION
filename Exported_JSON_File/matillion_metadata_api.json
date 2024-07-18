@@ -1,0 +1,65 @@
+{
+  "connectorName" : "matillion_metadata_api",
+  "endpoints" : [ {
+    "endpointName" : "lineage",
+    "connectorName" : "matillion_metadata_api",
+    "description" : "Used for accessing the Matillion ETL \"Metadata - Lineage\" API from within a Matillion job",
+    "endpointUri" : "http://localhost:8080/rest/v1/group/name/{mtln_group}/project/name/{mtln_project}/environment/name/{mtln_environment}/lineage",
+    "httpRequestType" : "GET",
+    "pagingEnabled" : false,
+    "pagingType" : null,
+    "endpointSchema" : "{\"schema\":{\"type\":\"struct\",\"objectcontents\":{\"taskType\":{\"size\":2000,\"type\":\"VARCHAR\"},\"environment\":{\"type\":\"struct\",\"objectcontents\":{\"schema\":{\"size\":2000,\"type\":\"VARCHAR\"},\"database\":{\"size\":2000,\"type\":\"VARCHAR\"},\"name\":{\"size\":2000,\"type\":\"VARCHAR\"},\"user\":{\"size\":2000,\"type\":\"VARCHAR\"},\"url\":{\"size\":2000,\"type\":\"VARCHAR\"}}},\"sourceConnectionUrl\":{\"size\":2000,\"type\":\"VARCHAR\"},\"sourceUsername\":{\"size\":2000,\"type\":\"VARCHAR\"},\"loggedTimestamp\":{\"type\":\"BIGINT\"},\"componentCanvasName\":{\"size\":2000,\"type\":\"VARCHAR\"},\"componentName\":{\"size\":2000,\"type\":\"VARCHAR\"},\"job\":{\"type\":\"struct\",\"objectcontents\":{\"name\":{\"size\":2000,\"type\":\"VARCHAR\"},\"type\":{\"size\":2000,\"type\":\"VARCHAR\"}}},\"endTimestamp\":{\"type\":\"BIGINT\"},\"urlPath\":{\"size\":2000,\"type\":\"VARCHAR\"},\"startTimestamp\":{\"type\":\"BIGINT\"},\"sql\":{\"type\":\"structarray\",\"objectcontents\":{\"dialect\":{\"size\":2000,\"type\":\"VARCHAR\"},\"query\":{\"size\":2000,\"type\":\"VARCHAR\"}}}}},\"containedInOuterArray\":true}",
+    "schemaType" : "UNFLATTENED_NO_REPEAT_ELEMENT",
+    "authEnabled" : true,
+    "authType" : "Basic Auth",
+    "authScheme" : "Basic",
+    "authParameterType" : "",
+    "pagingSizeParameter" : null,
+    "pagingSize" : null,
+    "nextAbsoluteUriDataKey" : null,
+    "baseUriDataKey" : null,
+    "pagingOffsetParameter" : null,
+    "pagingTotalItemsParameter" : null,
+    "nextCursorKey" : null,
+    "nextCursorParameter" : null,
+    "pageNumberParameter" : null,
+    "lastPageKey" : null,
+    "params" : [ {
+      "name" : "mtln_group",
+      "type" : "URI",
+      "constant" : "false",
+      "value" : "test",
+      "sensitiveData" : "false",
+      "paramID" : "d8d15bb5-3fc3-46d4-bdcf-c217be2842f3"
+    }, {
+      "name" : "mtln_project",
+      "type" : "URI",
+      "constant" : "false",
+      "value" : "test",
+      "sensitiveData" : "false",
+      "paramID" : "d2afd248-1f0f-4fec-8829-2242c6c1751a"
+    }, {
+      "name" : "mtln_environment",
+      "type" : "URI",
+      "constant" : "false",
+      "value" : "test",
+      "sensitiveData" : "false",
+      "paramID" : "1845156e-5181-4d9b-90c1-cf8dbb3beba7"
+    }, {
+      "name" : "startTimestamp",
+      "type" : "Query",
+      "constant" : "false",
+      "value" : "1607954203",
+      "sensitiveData" : "false",
+      "paramID" : "dcbcd5a3-759a-4ff9-ac70-62c280a575b4"
+    }, {
+      "name" : "endTimeStamp",
+      "type" : "Query",
+      "constant" : "false",
+      "value" : "",
+      "sensitiveData" : "false",
+      "paramID" : "0cd84e28-b1d1-41ff-b2a8-3f3bf0c425dc"
+    } ]
+  } ],
+  "version" : "1.61.6"
+}
