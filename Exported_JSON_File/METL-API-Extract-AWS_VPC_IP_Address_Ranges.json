@@ -1,0 +1,30 @@
+{
+  "connectorName" : "aws-ip-ranges",
+  "endpoints" : [ {
+    "endpointName" : "ip ranges",
+    "connectorName" : "aws-ip-ranges",
+    "description" : "https://ip-ranges.amazonaws.com/ip-ranges.json",
+    "endpointUri" : "https://ip-ranges.amazonaws.com/ip-ranges.json",
+    "httpRequestType" : "GET",
+    "pagingEnabled" : false,
+    "pagingType" : null,
+    "endpointSchema" : "{\"schema\":{\"type\":\"struct\",\"objectcontents\":{\"prefixes\":{\"type\":\"structarray\",\"objectcontents\":{\"network_border_group\":{\"size\":2000,\"type\":\"VARCHAR\"},\"ip_prefix\":{\"size\":2000,\"type\":\"VARCHAR\"},\"service\":{\"size\":2000,\"type\":\"VARCHAR\"},\"region\":{\"size\":2000,\"type\":\"VARCHAR\"}}},\"syncToken\":{\"type\":\"BIGINT\"},\"ipv6_prefixes\":{\"type\":\"structarray\",\"objectcontents\":{\"network_border_group\":{\"size\":2000,\"type\":\"VARCHAR\"},\"ipv6_prefix\":{\"size\":2000,\"type\":\"VARCHAR\"},\"service\":{\"size\":2000,\"type\":\"VARCHAR\"},\"region\":{\"size\":2000,\"type\":\"VARCHAR\"}}},\"createDate\":{\"size\":2000,\"type\":\"VARCHAR\"}}}}",
+    "schemaType" : "UNFLATTENED_NO_REPEAT_ELEMENT",
+    "authEnabled" : false,
+    "authType" : "",
+    "authScheme" : "",
+    "authParameterType" : null,
+    "pagingSizeParameter" : null,
+    "pagingSize" : null,
+    "nextAbsoluteUriDataKey" : null,
+    "baseUriDataKey" : null,
+    "pagingOffsetParameter" : null,
+    "pagingTotalItemsParameter" : null,
+    "nextCursorKey" : null,
+    "nextCursorParameter" : null,
+    "pageNumberParameter" : null,
+    "lastPageKey" : null,
+    "params" : [ ]
+  } ],
+  "version" : "1.61.6"
+}
