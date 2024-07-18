@@ -1,3 +1,67 @@
+--creating stored proc
+CREATE OR REPLACE PROCEDURE actiontobeperformed(src_db STRING,
+												src_dbschema string,
+												tablename string,
+												tgt_db string,
+												tgt_dbschema string,
+												action_type string,
+												table_view char(1))
+returns string
+language javascript
+execute as caller
+as
+$$
+
+-- variable declaration
+var action_type  = ACTION_TYPE;
+var src_db       = SRC_DB;
+var src_dbschema = SRC_DBSCHEMA;
+var tablename    = TABLENAME;
+var tgt_db       = TGT_DB;
+var tgt_dbschema = TGT_DBSCHEMA;
+var table_view   = TABLE_VIEW;
+var result       = "";
+
+var sql_query_text = "";
+
+
+try
+{
+-- creating tables
+if (action_type.toUpperCase() == 'CREATE' && table_view.toUpperCase() == 'T')
+{
+var sql_query_text = 'CREATE OR REPLACE TABLE ' + tgt_db + '.' + tgt_dbschema + '.' + tablename + ' like ' + src_db +
+'.' + src_dbschema + '.' + tablename + ';'
+snowflake.createStatement({sqlText:sql_query_text}).execute();
+result = "Table created successfully: " + tgt_db + '.' + tgt_dbschema + '.' + tablename
+}
+
+--inserting records
+else if (action_type.toUpperCase() == 'INSERT' && table_view.toUpperCase() == 'I')
+{
+var sql_query_text = 'INSERT INTO ' + tgt_db + '.' + tgt_dbschema + '.' + tablename + ' select * from ' + src_db +
+'.' + src_dbschema + '.' + tablename + ';'
+snowflake.createStatement({sqlText:sql_query_text}).execute();
+result = "Insertion successfully completed: " + tgt_db + '.' + tgt_dbschema + '.' + tablename
+}
+else
+{
+result = "Fail: Please give proper parameter \n" + "1.If INSERTing the data then parameter should be only Table(t/T)\n"
+}
+
+}
+catch (err)
+{
+result += "\n Code: " + err.code + "\n State: " + err.state;
+result += "\n Message: " + err.message;
+result += "\n Stack Trace:\n" + err.stackTraceTxt;
+result += "Failed Query Text: " +sql_query_text;
+throw result;
+}
+return result;
+$$
+;
+
 -- for table creation
 CALL actiontobeperformed ('DEMO_DATABASE','DEMO_SCHEMA', 'BROKER','TEST_DST', 'DEST_SCHEMA','CREATE', 'T');
 CALL actiontobeperformed ('DEMO_DATABASE','DEMO_SCHEMA', 'CATEGORIES','TEST_DST', 'DEST_SCHEMA', 'CREATE', 'T'); 
