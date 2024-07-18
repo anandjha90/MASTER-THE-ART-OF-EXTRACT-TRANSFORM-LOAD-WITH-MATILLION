@@ -1,11 +1,11 @@
 --creating stored proc
 CREATE OR REPLACE PROCEDURE actiontobeperformed(src_db STRING,
-												src_dbschema string,
-												tablename string,
-												tgt_db string,
-												tgt_dbschema string,
-												action_type string,
-												table_view char(1))
+						src_dbschema string,
+						tablename string,
+						tgt_db string,
+						tgt_dbschema string,
+						action_type string,
+						table_view char(1))
 returns string
 language javascript
 execute as caller
