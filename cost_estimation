@@ -1,0 +1,52 @@
+1. Matillion Licensing Cost
+Matillion's license is billed hourly based on the EC2 instance size.
+
+Common Instances for Matillion:
+m5.large: 2 vCPUs, 8 GB RAM → $1.37/hour
+m5.xlarge: 4 vCPUs, 16 GB RAM → $2.47/hour
+m5.2xlarge: 8 vCPUs, 32 GB RAM → $4.56/hour
+Monthly and Yearly License Cost (24/7 Operation):
+Instance Size	Hourly Rate	Monthly Cost (730 Hours)	Yearly Cost (8,760 Hours)
+m5.large	$1.37	$1,000	$12,000
+m5.xlarge	$2.47	$1,800	$21,500
+m5.2xlarge	$4.56	$3,330	$40,000
+2. Snowflake Warehouse Cost
+The cost of Snowflake depends on the compute size and usage hours (billed per second). For example:
+
+Small Warehouse (XS): ~$2/hour
+Medium Warehouse (M): ~$4/hour
+Large Warehouse (L): ~$8/hour
+Monthly and Yearly Snowflake Compute Cost (Based on 8 Hours/Day Usage):
+Warehouse Size	Hourly Rate	Monthly Cost (240 Hours)	Yearly Cost (2,920 Hours)
+XS	$2.00	$480	$5,840
+M	$4.00	$960	$11,680
+L	$8.00	$1,920	$23,360
+3. AWS EC2 Source Instance Cost
+AWS EC2 costs vary based on the instance type and region.
+
+Estimated EC2 Instance Costs:
+Instance: t3.medium (2 vCPUs, 4 GB RAM) → $0.0416/hour
+Instance: t3.large (2 vCPUs, 8 GB RAM) → $0.0832/hour
+Monthly and Yearly EC2 Costs (24/7 Operation):
+Instance Size	Hourly Rate	Monthly Cost (730 Hours)	Yearly Cost (8,760 Hours)
+t3.medium	$0.0416	$30	$365
+t3.large	$0.0832	$60	$730
+4. Additional Costs
+AWS S3 Data Storage: ~$0.023/GB/month.
+Data Transfer:
+Snowflake ingress (upload): Free.
+Snowflake egress (download): ~$90 per TB.
+Total Cost Estimation
+Assuming:
+
+Matillion runs on m5.large.
+Snowflake uses an XS warehouse for 8 hours/day.
+AWS EC2 uses a t3.medium instance.
+Component	Monthly Cost	Yearly Cost
+Matillion License	$1,000	$12,000
+Snowflake (XS)	$480	$5,840
+AWS EC2 (t3.medium)	$30	$365
+Total	$1,510	$18,205
+Adjustments Based on Your Needs:
+If Matillion operates for limited hours/day, reduce the instance cost proportionally.
+Scale Snowflake warehouse size and runtime based on workload.
