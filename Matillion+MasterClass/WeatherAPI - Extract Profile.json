@@ -1,0 +1,37 @@
+{
+  "connectorName" : "WeatherAPI",
+  "endpoints" : [ {
+    "endpointName" : "WeatherAPI",
+    "connectorName" : "WeatherAPI",
+    "description" : "",
+    "endpointUri" : "http://api.weatherapi.com/v1/current.json",
+    "httpRequestType" : "GET",
+    "pagingEnabled" : false,
+    "pagingType" : null,
+    "endpointSchema" : "{\"schema\":{\"type\":\"struct\",\"objectcontents\":{\"current\":{\"type\":\"struct\",\"objectcontents\":{\"feelslike_c\":{\"precision\":3,\"scale\":1,\"type\":\"DOUBLE PRECISION\"},\"uv\":{\"precision\":2,\"scale\":1,\"type\":\"DOUBLE PRECISION\"},\"last_updated\":{\"size\":2000,\"type\":\"VARCHAR\"},\"feelslike_f\":{\"precision\":3,\"scale\":1,\"type\":\"DOUBLE PRECISION\"},\"wind_degree\":{\"type\":\"BIGINT\"},\"last_updated_epoch\":{\"type\":\"BIGINT\"},\"is_day\":{\"type\":\"BIGINT\"},\"precip_in\":{\"precision\":1,\"scale\":1,\"type\":\"DOUBLE PRECISION\"},\"wind_dir\":{\"size\":2000,\"type\":\"VARCHAR\"},\"gust_mph\":{\"precision\":3,\"scale\":1,\"type\":\"DOUBLE PRECISION\"},\"temp_c\":{\"precision\":3,\"scale\":1,\"type\":\"DOUBLE PRECISION\"},\"pressure_in\":{\"precision\":4,\"scale\":2,\"type\":\"DOUBLE PRECISION\"},\"gust_kph\":{\"precision\":3,\"scale\":1,\"type\":\"DOUBLE PRECISION\"},\"temp_f\":{\"precision\":3,\"scale\":1,\"type\":\"DOUBLE PRECISION\"},\"precip_mm\":{\"precision\":1,\"scale\":1,\"type\":\"DOUBLE PRECISION\"},\"cloud\":{\"type\":\"BIGINT\"},\"wind_kph\":{\"precision\":3,\"scale\":1,\"type\":\"DOUBLE PRECISION\"},\"condition\":{\"type\":\"struct\",\"objectcontents\":{\"code\":{\"type\":\"BIGINT\"},\"icon\":{\"size\":2000,\"type\":\"VARCHAR\"},\"text\":{\"size\":2000,\"type\":\"VARCHAR\"}}},\"wind_mph\":{\"precision\":3,\"scale\":1,\"type\":\"DOUBLE PRECISION\"},\"vis_km\":{\"precision\":3,\"scale\":1,\"type\":\"DOUBLE PRECISION\"},\"humidity\":{\"type\":\"BIGINT\"},\"pressure_mb\":{\"precision\":5,\"scale\":1,\"type\":\"DOUBLE PRECISION\"},\"vis_miles\":{\"precision\":2,\"scale\":1,\"type\":\"DOUBLE PRECISION\"}}},\"location\":{\"type\":\"struct\",\"objectcontents\":{\"localtime\":{\"size\":2000,\"type\":\"VARCHAR\"},\"country\":{\"size\":2000,\"type\":\"VARCHAR\"},\"localtime_epoch\":{\"type\":\"BIGINT\"},\"name\":{\"size\":2000,\"type\":\"VARCHAR\"},\"lon\":{\"precision\":2,\"scale\":2,\"type\":\"DOUBLE PRECISION\"},\"region\":{\"size\":2000,\"type\":\"VARCHAR\"},\"lat\":{\"precision\":4,\"scale\":2,\"type\":\"DOUBLE PRECISION\"},\"tz_id\":{\"size\":2000,\"type\":\"VARCHAR\"}}}}}}",
+    "schemaType" : "UNFLATTENED_NO_REPEAT_ELEMENT",
+    "authEnabled" : true,
+    "authType" : "API Key Value Pair",
+    "authScheme" : "",
+    "authParameterType" : "Query",
+    "pagingSizeParameter" : null,
+    "pagingSize" : null,
+    "nextAbsoluteUriDataKey" : null,
+    "baseUriDataKey" : null,
+    "pagingOffsetParameter" : null,
+    "pagingTotalItemsParameter" : null,
+    "nextCursorKey" : null,
+    "nextCursorParameter" : null,
+    "pageNumberParameter" : null,
+    "lastPageKey" : null,
+    "params" : [ {
+      "name" : "q",
+      "type" : "Query",
+      "constant" : "false",
+      "value" : "London",
+      "sensitiveData" : "false",
+      "paramID" : "55c6012e-25f0-47e8-9ffa-5d08436e2241"
+    } ]
+  } ],
+  "version" : "1.61.6"
+}
