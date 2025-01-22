@@ -1,0 +1,33 @@
+--Development DB and Schemas
+--SRC is raw layer where we get the source data as-is from Source
+--Staging is intermidiate layer for transformation 
+--DWH is destination schema
+Create database PC_MATILLION_DEV_DB;
+Create Schema PC_MATILLION_DEV_DB.SRC;
+Create Schema PC_MATILLION_DEV_DB.STG;
+Create Schema PC_MATILLION_DEV_DB.DWH;
+--Test DB and Schemas
+Create database PC_MATILLION_TST_DB;
+Create Schema PC_MATILLION_TST_DB.SRC;
+Create Schema PC_MATILLION_TST_DB.STG;
+Create Schema PC_MATILLION_TST_DB.DWH;
+--Production DB and Schemas
+Create database PC_MATILLION_PRD_DB;
+Create Schema PC_MATILLION_PRD_DB.SRC;
+Create Schema PC_MATILLION_PRD_DB.STG;
+Create Schema PC_MATILLION_PRD_DB.DWH;
+
+grant ownership on database PC_MATILLION_DEV_DB to role PC_MATILLION_ROLE;
+grant ownership on schema PC_MATILLION_DEV_DB.SRC to role PC_MATILLION_ROLE;
+grant ownership on schema  PC_MATILLION_DEV_DB.STG to role PC_MATILLION_ROLE;
+grant ownership on schema PC_MATILLION_DEV_DB.DWH to role PC_MATILLION_ROLE;
+grant ownership on table PC_MATILLION_DEV_DB.src.tbl_job_variable_output  to role PC_MATILLION_ROLE;
+grant ownership on database PC_MATILLION_TST_DB to role PC_MATILLION_ROLE;
+grant ownership on schema PC_MATILLION_TST_DB.SRC to role PC_MATILLION_ROLE;
+grant ownership on schema  PC_MATILLION_TST_DB.STG to role PC_MATILLION_ROLE;
+grant ownership on schema PC_MATILLION_TST_DB.DWH to role PC_MATILLION_ROLE;
+
+grant ownership on database PC_MATILLION_PRD_DB to role PC_MATILLION_ROLE;
+grant ownership on schema PC_MATILLION_PRD_DB.SRC to role PC_MATILLION_ROLE;
+grant ownership on schema  PC_MATILLION_PRD_DB.STG to role PC_MATILLION_ROLE;
+grant ownership on schema PC_MATILLION_PRD_DB.DWH to role PC_MATILLION_ROLE;

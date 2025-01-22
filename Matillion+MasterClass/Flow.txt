@@ -1,0 +1,1 @@
+Select CustomerID from SalesLT.Customer where 1=1

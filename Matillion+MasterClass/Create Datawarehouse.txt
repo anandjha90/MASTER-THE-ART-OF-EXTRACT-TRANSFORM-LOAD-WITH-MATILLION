@@ -1,0 +1,203 @@
+CREATE OR REPLACE SEQUENCE dwh.SEQ_DIM_CUSTOMER START = 1 INCREMENT = 1;
+CREATE OR REPLACE SEQUENCE dwh.SEQ_DIM_PRODUCT START = 1 INCREMENT = 1;
+CREATE OR REPLACE SEQUENCE dwh.seq_DIM_DATE START = 1 INCREMENT = 1;
+CREATE OR REPLACE SEQUENCE dwh.seq_DIM_PRODUCTCATEGORY START = 1 INCREMENT = 1;
+CREATE OR REPLACE SEQUENCE dwh.seq_FACT_SALES_ORDER START = 1 INCREMENT = 1;
+
+
+CREATE or replace TABLE SRC.AUDIT_LOG ( LOG_DATA VARCHAR2(1000));
+
+insert into PC_MATILLION_DEV_DB.SRC.AUDIT_LOG VALUES (CURRENT_DATE)
+
+CREATE or replace TABLE dwh.DimCustomer (
+    Customer_key INT PRIMARY KEY default dwh.SEQ_DIM_CUSTOMER.nextval,
+    SRC_CUSTOMERID NUMBER(10,0),
+	NAMESTYLE BOOLEAN,
+	TITLE VARCHAR(8),
+	FIRSTNAME VARCHAR(50),
+	MIDDLENAME VARCHAR(50),
+	LASTNAME VARCHAR(50),
+	SUFFIX VARCHAR(10),
+	COMPANYNAME VARCHAR(128),
+	SALESPERSON VARCHAR(256),
+	EMAILADDRESS VARCHAR(50),
+	PHONE VARCHAR(25),
+	PASSWORDHASH VARCHAR(128),
+	PASSWORDSALT VARCHAR(10)
+);
+
+
+
+-- DimProduct table
+CREATE or replace TABLE dwh.DimProduct (
+   PRODUCT_KEY INT PRIMARY KEY default dwh.SEQ_DIM_PRODUCT.nextval,
+   SRC_PRODUCTID VARCHAR(50),
+	NAME VARCHAR(50),
+	PRODUCTNUMBER VARCHAR(25),
+	COLOR VARCHAR(15),
+	STANDARDCOST NUMBER(19,4),
+	LISTPRICE NUMBER(19,4),
+	SIZE VARCHAR(5),
+	WEIGHT NUMBER(8,2),
+	PRODUCTCATEGORYID NUMBER(10,0),
+	PRODUCTMODELID NUMBER(10,0),
+	SELLSTARTDATE TIMESTAMP_NTZ(9),
+	SELLENDDATE TIMESTAMP_NTZ(9),
+	DISCONTINUEDDATE TIMESTAMP_NTZ(9),
+	THUMBNAILPHOTO VARCHAR(16),
+	THUMBNAILPHOTOFILENAME VARCHAR(16)
+);
+insert into dimproduct (SRC_PRODUCTID)
+values('1');
+insert into DimCustomer (SRC_customerID)
+values('1');
+
+truncate table DimProduct;
+
+
+create or replace TABLE PC_MATILLION_DEV_DB.dwh.DIM_PRODUCTCATEGORY (
+	PRODUCT_CATEGOR_KEY INT PRIMARY KEY default dwh.seq_DIM_PRODUCTCATEGORY.nextval,
+    src_PRODUCTCATEGORYID NUMBER(10,0),
+	PARENTPRODUCTCATEGORYID NUMBER(10,0),
+	NAME VARCHAR(50)
+);
+
+-- DimDate table
+CREATE or replace TABLE dwh.DimDate (
+    DateKey INT PRIMARY KEY default dwh.seq_DIM_DATE.nextval,
+    Cal_date DATE,
+    Year INT,
+    Month_Number INT,
+    Month_Name Varchar2(20),
+    Day INT,
+    DayOfWeek_Number INT, 
+    DayOfWeek_Name VARCHAR(50),  
+    Quarter_Number VARCHAR(5), 
+    Weekend BOOLEAN,  
+    Public_Holiday BOOLEAN, 
+    Public_Holiday_Name VARCHAR(50), 
+    Working_Day BOOLEAN
+
+);
+
+CREATE or replace TABLE src.public_holidays (
+cal_Dt date,
+holiday_name VARCHAR(50));
+delete from src.public_holidays where cal_Dt='01-JAN-2001'
+insert into src.public_holidays values(to_date ('01-JAN-2000','DD-MON-YYYY'),'New Year');
+insert into src.public_holidays values(to_date ('01-JAN-2001','DD-MON-YYYY'),'New Year');
+insert into src.public_holidays values(to_date ('01-JAN-2002','DD-MON-YYYY'),'New Year');
+insert into src.public_holidays values(to_date ('01-JAN-2003','DD-MON-YYYY'),'New Year');
+insert into src.public_holidays values(to_date ('01-JAN-2004','DD-MON-YYYY'),'New Year');
+insert into src.public_holidays values(to_date ('01-JAN-2005','DD-MON-YYYY'),'New Year');
+insert into src.public_holidays values(to_date ('01-JAN-2006','DD-MON-YYYY'),'New Year');
+insert into src.public_holidays values(to_date ('01-JAN-2007','DD-MON-YYYY'),'New Year');
+insert into src.public_holidays values(to_date ('01-JAN-2008','DD-MON-YYYY'),'New Year');
+insert into src.public_holidays values(to_date ('01-JAN-2009','DD-MON-YYYY'),'New Year');
+insert into src.public_holidays values(to_date ('01-JAN-2010','DD-MON-YYYY'),'New Year');
+insert into src.public_holidays values(to_date ('01-JAN-2011','DD-MON-YYYY'),'New Year');
+insert into src.public_holidays values(to_date ('01-JAN-2012','DD-MON-YYYY'),'New Year');
+insert into src.public_holidays values(to_date ('01-JAN-2013','DD-MON-YYYY'),'New Year');
+insert into src.public_holidays values(to_date ('01-JAN-2014','DD-MON-YYYY'),'New Year');
+insert into src.public_holidays values(to_date ('01-JAN-2015','DD-MON-YYYY'),'New Year');
+insert into src.public_holidays values(to_date ('01-JAN-2016','DD-MON-YYYY'),'New Year');
+insert into src.public_holidays values(to_date ('01-JAN-2017','DD-MON-YYYY'),'New Year');
+insert into src.public_holidays values(to_date ('01-JAN-2018','DD-MON-YYYY'),'New Year');
+insert into src.public_holidays values(to_date ('01-JAN-2019','DD-MON-YYYY'),'New Year');
+insert into src.public_holidays values(to_date ('01-JAN-2020','DD-MON-YYYY'),'New Year');
+
+commit;
+
+
+-- FactSales table
+create or replace TABLE PC_MATILLION_DEV_DB.dwh.FACT_SALES_ORDER (
+	SALES_KEY INT PRIMARY KEY default dwh.seq_FACT_SALES_ORDER.nextval,
+    SRC_SALESORDERID NUMBER(10,0),
+	REVISIONNUMBER NUMBER(3,0),
+	ORDER_DATE_key INT,
+	DUEDATE_KEY INT,
+	SHIPDATE_KEY INT,
+	STATUS NUMBER(3,0),
+	ONLINEORDERFLAG BOOLEAN,
+	SALESORDERNUMBER VARCHAR(25),
+	PURCHASEORDERNUMBER VARCHAR(25),
+	ACCOUNTNUMBER VARCHAR(15),
+	SRC_CUSTOMER_KEY NUMBER(10,0),
+	SHIPTOADDRESS_KEY NUMBER(10,0),
+	BILLTOADDRESS_KEY NUMBER(10,0),
+	SHIPMETHOD VARCHAR(50),
+	CREDITCARDAPPROVALCODE VARCHAR(15),
+	SUBTOTAL NUMBER(19,4),
+	TAXAMT NUMBER(19,4),
+	FREIGHT NUMBER(19,4),
+	TOTALDUE NUMBER(19,4)
+);
+
+
+
+select * from dwh.fact_sales_order
+
+create or replace TABLE PC_MATILLION_DEV_DB.STG.STG_FACT_SALES_ORDER (
+    SRC_SALESORDERID NUMBER(10,0),
+	REVISIONNUMBER NUMBER(3,0),
+	ORDER_DATE_key INT,
+    ORDER_DATE DATE,
+	DUEDATE_KEY INT,
+    DUEDATE DATE,
+	SHIPDATE_KEY INT,
+    SHIPDATE DATE,
+	STATUS NUMBER(3,0),
+	ONLINEORDERFLAG BOOLEAN,
+	SALESORDERNUMBER VARCHAR(25),
+	PURCHASEORDERNUMBER VARCHAR(25),
+	ACCOUNTNUMBER VARCHAR(15),
+	SRC_CUSTOMER_KEY NUMBER(10,0),
+    CUSTOMERID NUMBER(10,0),
+	SHIPTOADDRESS_KEY NUMBER(10,0),
+    SHIPTOADDRESS_ID NUMBER(10,0),
+	BILLTOADDRESS_KEY NUMBER(10,0),
+    BILLTOADDRESS_ID NUMBER(10,0),
+	SHIPMETHOD VARCHAR(50),
+	CREDITCARDAPPROVALCODE VARCHAR(15),
+	SUBTOTAL NUMBER(19,4),
+	TAXAMT NUMBER(19,4),
+	FREIGHT NUMBER(19,4),
+	TOTALDUE NUMBER(19,4)
+);
+
+
+
+grant ownership on table dwh.DimDate to role PC_MATILLION_ROLE ; 
+grant ownership on table dwh.DimProduct to role PC_MATILLION_ROLE ;
+grant ownership on table dwh.DimCustomer to role PC_MATILLION_ROLE ;
+grant ownership on table dwh.DIM_PRODUCTCATEGORY to role PC_MATILLION_ROLE ;
+grant ownership on table dwh.FACT_SALES_ORDER to role PC_MATILLION_ROLE ;
+grant ownership on SEQUENCE dwh.seq_DIM_CUSTOMER to role PC_MATILLION_ROLE ;
+grant ownership on table STAGING.STG_FACT_SALES_ORDER to role PC_MATILLION_ROLE ;
+grant ownership on SEQUENCE dwh.SEQ_DIM_PRODUCT to role PC_MATILLION_ROLE ;
+grant ownership on SEQUENCE dwh.seq_DIM_DATE to role PC_MATILLION_ROLE ;
+grant ownership on SEQUENCE dwh.seq_DIM_PRODUCTCATEGORY to role PC_MATILLION_ROLE ;
+grant ownership on SEQUENCE dwh.seq_FACT_SALES_ORDER to role PC_MATILLION_ROLE ;
+
+select * from src.ms_customer;
+select * from dwh.dimcustomer;
+truncate table dwh.dimcustomer;
+select * from dwh.DimDate;
+select * from dwh.DimProduct;
+select * from dwh.DIM_PRODUCTCATEGORY;
+
+select  * from src.ms_salesorderheader h
+inner join dwh.dimdate d on d.cal_date=h.orderdate;
+
+select * from dwh.fact_sales_order;
+
+select src_salesorderid,order_date_key,src_customer_key,shiptoaddress_key from STAGING.STG_FACT_SALES_ORDER;
+
+
+select * from dwh.DimDate;
+
+select * From  STG.STG_FACT_SALES_ORDER;
+
+select c.firstname||' '||c.lastname as customer_name,order_Date.CAL_DATE as order_date,f.* From dwh.fact_sales_order f
+inner join dwh.dimcustomer c on c.customer_key=f.src_customer_key
+inner join dwh.dimdate order_Date on order_Date.DATEKEY=f.order_date_key

@@ -1,0 +1,5 @@
+jv_ColumnName	Text	Shared	Public	LOG_DATA
+jv_DBName	Text	Shared	Public	PC_MATILLION_DEV_DB
+jv_logdata	Text	Shared	Public test
+jv_schemaName	Text	Shared	Public	src
+jv_TableName	Text	Shared	Public	AUDIT_LOG

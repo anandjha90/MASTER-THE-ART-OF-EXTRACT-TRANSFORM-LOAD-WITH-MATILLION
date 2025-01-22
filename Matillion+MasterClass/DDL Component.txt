@@ -1,0 +1,8 @@
+alter table PC_MATILLION_DEV_DB.SRC.AWS_EXCEL_EMPLOYEE_DATA add test varchar(50);
+
+================================================================================
+
+COL1	VARCHAR	100			No	No		
+COL2	VARCHAR	100			No	No		
+COL3	VARCHAR	100			No	No		
+COL4	VARCHAR	100			No	No	

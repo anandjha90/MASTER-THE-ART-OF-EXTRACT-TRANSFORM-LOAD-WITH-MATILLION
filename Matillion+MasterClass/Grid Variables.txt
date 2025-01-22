@@ -1,0 +1,10 @@
+Input_Column	Text
+Qualifier	Text
+Comparator	Text
+Comparison_Value	Text
+Then_Value	Numeric
+
+
+COLOR	Is	Equal To	Black	0000
+COLOR	Is	Equal To	White	1000
+COLOR	Is	Equal To	Red	5000
