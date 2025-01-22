@@ -1,0 +1,18 @@
+create or replace TABLE PC_MATILLION_DEV_DB.SRC.AWS_EXCEL_EMPLOYEE_DATA (
+	"RowId" NUMBER(10,0),
+	"Employee ID" VARCHAR(2000),
+	"Full Name" VARCHAR(2000),
+	"Job Title" VARCHAR(2000),
+	"Department" VARCHAR(2000),
+	"Business Unit" VARCHAR(2000),
+	"Gender" VARCHAR(2000),
+	"Ethnicity" VARCHAR(2000),
+	"Age" FLOAT,
+	"Hire Date" TIMESTAMP_NTZ(9),
+	"Annual Salary" FLOAT,
+	"Bonus %" FLOAT,
+	"Country" VARCHAR(2000),
+	"City" VARCHAR(2000),
+	"Exit Date" VARCHAR(2000),
+	TEST VARCHAR(50)
+);
