@@ -1,6 +1,4 @@
-================================================================
-Set operations
-================================================================
+-- Set operations
 CREATE TABLE TABLE_A (VAL_A VARCHAR(100));
 CREATE TABLE TABLE_B (VAL_B VARCHAR(100));
 alter table TABLE_A rename column VAL_A to DATA_VALUE;
