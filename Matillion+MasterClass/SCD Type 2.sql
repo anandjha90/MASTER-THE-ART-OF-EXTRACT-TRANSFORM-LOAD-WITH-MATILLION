@@ -1,22 +1,22 @@
 Select * from PC_MATILLION_DEV_DB.SRC.MS_CUSTOMERADDRESS;
 Select * from PC_MATILLION_DEV_DB.DWH.DIM_CUSTOMERADDRESS;
 
-create sequence PC_MATILLION_DEV_DB.DWH.ADDR_KEY
+create or replace sequence PC_MATILLION_DEV_DB.DWH.ADDR_KEY
      start = 1
      increment = 1
      comment = 'Surrogate key for address';
 
 create or replace TABLE PC_MATILLION_DEV_DB.DWH.DIM_CUSTOMERADDRESS (
-	ADD_KEY NUMBER(11,0) Default PC_MATILLION_DEV_DB.DWH.ADDR_KEY.nextval,
+	ADD_KEY NUMBER(11,0) default PC_MATILLION_DEV_DB.DWH.ADDR_KEY.nextval,
     CUSTOMERID NUMBER(11,0),
 	ADDRESSID NUMBER(11,0),
 	ADDRESSTYPE VARCHAR(100),
-	ACTIVE_FLAG VARCHAR(10) Default 'Y',
-    EFF_START_DT DATE Default current_date,
+	ACTIVE_FLAG VARCHAR(10) default 'Y',
+    EFF_START_DT DATE Default CURRENT_DATE,
     EFF_END_DT DATE
 );
 
-grant ownership PC_MATILLION_DEV_DB.DWH.DIM_CUSTOMERADDRESS to PC_MATILLION_ROLE;
+grant ownership on table  PC_MATILLION_DEV_DB.DWH.DIM_CUSTOMERADDRESS  to role PC_MATILLIONLOADER_ROLE;
 
 Select * from PC_MATILLION_DEV_DB.DWH.DIM_CUSTOMERADDRESS;
 
@@ -24,11 +24,13 @@ Select * from PC_MATILLION_DEV_DB.DWH.DIM_CUSTOMERADDRESS;
 select * from PC_MATILLION_DEV_DB.SRC.MS_CUSTOMERADDRESS;
 insert into PC_MATILLION_DEV_DB.SRC.MS_CUSTOMERADDRESS (customerid,addressid,addresstype) values (77,78,'Main Office');
 select * From pc_matillion_dev_db.dwh.dim_customeraddress where customerid='77' and addressid='78';
---delete scenario
-delete from PC_MATILLION_DEV_DB.SRC.MS_CUSTOMERADDRESS where customerid='29494' and addressid='537';
-select * From pc_matillion_dev_db.dwh.dim_customeraddress where customerid='29494' and addressid='537';
---update scenario
-update PC_MATILLION_DEV_DB.SRC.MS_CUSTOMERADDRESS set addresstype='Shipping' where customerid='29489' and addressid='1069';
-select * From pc_matillion_dev_db.dwh.dim_customeraddress where customerid='29489' and addressid='1069';
 
-truncate table pc_matillion_dev_db.dwh.dim_customeraddressC
+--delete scenario
+delete from PC_MATILLION_DEV_DB.SRC.MS_CUSTOMERADDRESS where customerid='29532' and addressid='881';
+select * From pc_matillion_dev_db.dwh.dim_customeraddress where customerid='29532' and addressid='881';
+
+--update scenario
+update PC_MATILLION_DEV_DB.SRC.MS_CUSTOMERADDRESS set addresstype='Shipping' where customerid='29523' and addressid='593';
+select * From pc_matillion_dev_db.dwh.dim_customeraddress where customerid='29523' and addressid='593';
+
+truncate table pc_matillion_dev_db.dwh.dim_customeraddress;
