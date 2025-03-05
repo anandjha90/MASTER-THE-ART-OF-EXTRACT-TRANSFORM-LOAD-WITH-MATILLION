@@ -1,0 +1,73 @@
+{
+  "connectorName" : "matillion_metadata_api",
+  "endpoints" : [ {
+    "endpointName" : "lineage",
+    "endpointId" : null,
+    "connectorName" : "matillion_metadata_api",
+    "description" : "Used for accessing the Matillion ETL \"Metadata - Lineage\" API from within a Matillion job",
+    "endpointUri" : "http://{url}/rest/v1/group/name/{project_group}/project/name/{project_name}/environment/name/{env}/lineage",
+    "httpRequestType" : "GET",
+    "pagingEnabled" : false,
+    "pagingType" : null,
+    "endpointSchema" : "{\"schema\":{\"type\":\"struct\",\"objectcontents\":{\"loggedTimestamp\":{\"type\":\"BIGINT\"},\"componentCanvasName\":{\"size\":2000,\"type\":\"VARCHAR\"},\"source\":{\"type\":\"structarray\",\"objectcontents\":{\"fqn\":{\"size\":2000,\"type\":\"VARCHAR\"},\"url\":{\"size\":2000,\"type\":\"VARCHAR\"}}},\"urlPath\":{\"size\":2000,\"type\":\"VARCHAR\"},\"target\":{\"type\":\"structarray\",\"objectcontents\":{\"fqn\":{\"size\":2000,\"type\":\"VARCHAR\"},\"url\":{\"size\":2000,\"type\":\"VARCHAR\"}}},\"sql\":{\"type\":\"structarray\",\"objectcontents\":{\"dialect\":{\"size\":2000,\"type\":\"VARCHAR\"},\"query\":{\"size\":3492,\"type\":\"VARCHAR\"}}},\"taskType\":{\"size\":2000,\"type\":\"VARCHAR\"},\"environment\":{\"type\":\"struct\",\"objectcontents\":{\"schema\":{\"size\":2000,\"type\":\"VARCHAR\"},\"database\":{\"size\":2000,\"type\":\"VARCHAR\"},\"name\":{\"size\":2000,\"type\":\"VARCHAR\"},\"user\":{\"size\":2000,\"type\":\"VARCHAR\"},\"url\":{\"size\":2000,\"type\":\"VARCHAR\"}}},\"sourceConnectionUrl\":{\"size\":2000,\"type\":\"VARCHAR\"},\"sourceUsername\":{\"size\":2000,\"type\":\"VARCHAR\"},\"componentName\":{\"size\":2000,\"type\":\"VARCHAR\"},\"job\":{\"type\":\"struct\",\"objectcontents\":{\"name\":{\"size\":2000,\"type\":\"VARCHAR\"},\"type\":{\"size\":2000,\"type\":\"VARCHAR\"}}},\"endTimestamp\":{\"type\":\"BIGINT\"},\"startTimestamp\":{\"type\":\"BIGINT\"}}},\"containedInOuterArray\":true}",
+    "schemaType" : "UNFLATTENED_NO_REPEAT_ELEMENT",
+    "authEnabled" : true,
+    "authType" : "Basic Auth",
+    "authScheme" : "Basic",
+    "authParameterType" : "",
+    "pagingSizeParameter" : null,
+    "pagingSize" : null,
+    "nextAbsoluteUriDataKey" : null,
+    "baseUriDataKey" : null,
+    "pagingOffsetParameter" : null,
+    "pagingTotalItemsParameter" : null,
+    "nextCursorKey" : null,
+    "nextCursorParameter" : null,
+    "pageNumberParameter" : null,
+    "lastPageKey" : null,
+    "params" : [ {
+      "name" : "url",
+      "type" : "URI",
+      "constant" : "false",
+      "value" : "18.232.72.168",
+      "sensitiveData" : "false",
+      "paramID" : "abc3c088-3fe2-4007-a544-bc448852cfbf"
+    }, {
+      "name" : "project_group",
+      "type" : "URI",
+      "constant" : "false",
+      "value" : "Learn_Matillion",
+      "sensitiveData" : "false",
+      "paramID" : "3a3a5248-2b76-4634-8dfb-3964f62961f3"
+    }, {
+      "name" : "project_name",
+      "type" : "URI",
+      "constant" : "false",
+      "value" : "Practice_Matillion",
+      "sensitiveData" : "false",
+      "paramID" : "cd859071-3f6b-484a-84bb-eabe326665d3"
+    }, {
+      "name" : "env",
+      "type" : "URI",
+      "constant" : "false",
+      "value" : "AWA_AWS",
+      "sensitiveData" : "false",
+      "paramID" : "4b1e7475-3e28-4f49-b48d-1f26de719e95"
+    }, {
+      "name" : "startTimestamp",
+      "type" : "Query",
+      "constant" : "false",
+      "value" : "1607954203",
+      "sensitiveData" : "false",
+      "paramID" : "1a833d8b-e3c0-4185-8c84-f3634748d67f"
+    }, {
+      "name" : "endTimeStamp",
+      "type" : "Query",
+      "constant" : "false",
+      "value" : "",
+      "sensitiveData" : "false",
+      "paramID" : "80d4027c-1e4b-4543-a4ef-65d8c2c6407d"
+    } ]
+  } ],
+  "version" : "1.77.1"
+}
