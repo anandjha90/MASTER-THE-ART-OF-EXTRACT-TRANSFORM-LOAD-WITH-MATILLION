@@ -1,0 +1,115 @@
+type: "orchestration"
+version: "1.0"
+pipeline:
+  components:
+    Start:
+      type: "start"
+      transitions:
+        unconditional:
+        - "Create Table Demographic"
+      parameters:
+        componentName: "Start"
+    Create Table Demographic:
+      type: "create-table-v2"
+      parameters:
+        componentName: "Create Table Demographic"
+        createMethod: "Create If Not Exists"
+        database: "DEMO_DATABASE"
+        schema: "DEMO_SCHEMA"
+        table: "CUSTOMER"
+        snowflakeTableType: "Permanent"
+        columns:
+        - - "AGE_DESC"
+          - "VARCHAR"
+          - "20"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+          - ""
+        - - "MARITAL_STATUS_CODE"
+          - "VARCHAR"
+          - "5"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+          - ""
+        - - "INCOME_DESC"
+          - "VARCHAR"
+          - "40"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+          - ""
+        - - "HOMEOWNER_DESC"
+          - "VARCHAR"
+          - "40"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+          - ""
+        - - "HH_COMP_DESC"
+          - "VARCHAR"
+          - "50"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+          - ""
+        - - "HOUSEHOLD_SIZE_DESC"
+          - "VARCHAR"
+          - "50"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+          - ""
+        - - "KID_CATEGORY_DESC"
+          - "VARCHAR"
+          - "40"
+          - ""
+          - ""
+          - "No"
+          - "No"
+          - ""
+          - ""
+        - - "HOUSEHOLD_KEY"
+          - "NUMBER"
+          - ""
+          - ""
+          - ""
+          - "No"
+          - "Yes"
+          - ""
+          - ""
+        defaultDdlCollation:
+        primaryKeys:
+        - "HOUSEHOLD_KEY"
+        clusteringKeys:
+        - "HOUSEHOLD_KEY"
+        dataRetentionTimeInDays:
+        comment: "Creating Demographic Table"
+      postProcessing:
+        updateOutputMessage:
+        updateScalarVariables:
+design:
+  components:
+    Start:
+      position:
+        x: -510
+        "y": -120
+      tempMetlId: 1
+    Create Table Demographic:
+      position:
+        x: -350
+        "y": -240
+      tempMetlId: 2
