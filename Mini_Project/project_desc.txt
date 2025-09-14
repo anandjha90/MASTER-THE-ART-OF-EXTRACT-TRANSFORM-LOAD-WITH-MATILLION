@@ -1,9 +1,10 @@
 # Project Overview
-
 https://quickstarts.snowflake.com/guide/load-integrate-data-matillion-data-productivity-cloud/index.html#0
 
 Datasets Link:
 https://s3.eu-west-1.amazonaws.com/devrel.matillion.com/solutions/GreenWave/customer_accounts.json
 https://s3.eu-west-1.amazonaws.com/devrel.matillion.com/solutions/GreenWave/store_lite.xlsx
+
+Complete Video : https://drive.google.com/drive/folders/1KaTWMRu3lL0hoe5LTdsCDxY9snnJnkdU?usp=sharing
 
 
