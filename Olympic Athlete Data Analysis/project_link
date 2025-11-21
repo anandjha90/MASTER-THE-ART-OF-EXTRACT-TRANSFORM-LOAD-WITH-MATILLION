@@ -1,1 +1,5 @@
-https://exchange.matillion.com/data-productivity-cloud/pipeline/olympic-athlete-data-analysis/
+Complete Project URL : https://exchange.matillion.com/data-productivity-cloud/pipeline/olympic-athlete-data-analysis/
+
+Datasets Link:
+s3://devrel.matillion.com/data/structured/olympics/athlete_events.csv.gz - all the athletes in every Olympic event, as a CSV separated by \r\n, with one header line
+s3://devrel.matillion.com/data/structured/olympics/noc_regions.csv.gz - the National Olympic Committee country codes, as a CSV separated by \r, with one header line
