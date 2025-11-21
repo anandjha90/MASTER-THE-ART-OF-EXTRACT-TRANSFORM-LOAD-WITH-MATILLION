@@ -1,0 +1,72 @@
+type: "orchestration"
+version: "1.0"
+pipeline:
+  components:
+    Start:
+      type: "start"
+      transitions:
+        unconditional:
+        - "Amazon Bedrock Prompt"
+      parameters:
+        componentName: "Start"
+    Amazon Bedrock Prompt:
+      type: "aws-ai-prompt"
+      parameters:
+        componentName: "Amazon Bedrock Prompt"
+        aws:
+          region: "us-east-1"
+          modelCategory: "Amazon"
+          guardrailId:
+          amazon:
+            model: "amazon.titan-text-express-v1"
+            temperature: "0.5"
+            topP: "0.9"
+            maxTokens: "512"
+        source:
+          snowflake:
+            database: "[Environment Default]"
+            schema: "[Environment Default]"
+            table: "top_10_athletes_summer_2016"
+            keyColumn: "Rank"
+            limit: "1000"
+        promptContext:
+          userContext: "You are a reporter on athletic events. Write a short bio on\
+            \ how the named athlete performed in the Summer 2016 Olympic Games"
+          inputs:
+          - - "Name"
+            - "Athlete"
+            - "Text"
+          outputFormat: "TEXT"
+        destination:
+          snowflake:
+            database: "[Environment Default]"
+            schema: "[Environment Default]"
+            table: "top_10_athletes_summer_2016_TitanTX"
+            createTableOptions: "Replace if Table Exists"
+        ragConfig:
+          isRagEnabled: "No"
+design:
+  components:
+    Start:
+      position:
+        x: -450
+        "y": -100
+      tempMetlId: 1
+    Amazon Bedrock Prompt:
+      position:
+        x: -310
+        "y": -100
+      tempMetlId: 2
+  notes:
+    "1":
+      position:
+        x: -710
+        "y": -310
+      size:
+        height: 320
+        width: 800
+      theme: "white"
+      content: |-
+        ### **Amazon Bedrock Prompt**
+
+        The **Amazon Bedrock Prompt** component uses Amazon's conversational AI model to prompt for information from a user and store the responses in Snowflake. It sources data from the top_10_athletes_summer_2016 table to provide context. The prompt will ask the user for the name, athlete details, and text response. These will be written back to the top_10_athletes_summer_2016_TitanTX table in Snowflake, replacing any existing data. The AI model used is amazon.titan-text-express-v1 with a temperature of 0.5 and topP of 0.9 to govern the response generation.

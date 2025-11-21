@@ -1,0 +1,386 @@
+type: "transformation"
+version: "1.0"
+pipeline:
+  components:
+    olympic_athletes:
+      type: "table-input"
+      parameters:
+        componentName: "olympic_athletes"
+        database: "[Environment Default]"
+        schema: "[Environment Default]"
+        targetTable: "olympic_athletes"
+        columnNames:
+        - "ID"
+        - "Name"
+        - "Sex"
+        - "Age"
+        - "Height"
+        - "Weight"
+        - "Team"
+        - "NOC"
+        - "Games"
+        - "Year"
+        - "Season"
+        - "City"
+        - "Sport"
+        - "Event"
+        - "Medal"
+        timeOffset:
+    noc_region:
+      type: "table-input"
+      parameters:
+        componentName: "noc_region"
+        database: "[Environment Default]"
+        schema: "[Environment Default]"
+        targetTable: "noc_region"
+        columnNames:
+        - "NOC"
+        - "Region"
+        - "Notes"
+        timeOffset:
+    Correct Naming:
+      type: "calculator"
+      sources:
+      - "noc_region"
+      parameters:
+        componentName: "Correct Naming"
+        includeInputColumns: "No"
+        calculations:
+        - - "\"NOC\""
+          - "NOC"
+        - - "COALESCE(\"Notes\", \"Region\")"
+          - "Name"
+    Athletes by country:
+      type: "join"
+      sources:
+      - "olympic_athletes"
+      - "Correct Naming"
+      parameters:
+        componentName: "Athletes by country"
+        mainTable: "olympic_athletes"
+        mainTableAlias: "ath"
+        joins:
+        - - "Correct Naming"
+          - "noc"
+          - "Left"
+        joinExpressions:
+        - - "\"ath\".\"NOC\" = \"noc\".\"NOC\""
+          - "ath_Left_noc"
+        columnMappings:
+        - - "noc.NOC"
+          - "NOC"
+        - - "noc.Name"
+          - "noc_Name"
+        - - "ath.ID"
+          - "ID"
+        - - "ath.Name"
+          - "Name"
+        - - "ath.Sex"
+          - "Sex"
+        - - "ath.Age"
+          - "Age"
+        - - "ath.Height"
+          - "Height"
+        - - "ath.Weight"
+          - "Weight"
+        - - "ath.Team"
+          - "Team"
+        - - "ath.Games"
+          - "Games"
+        - - "ath.Year"
+          - "Year"
+        - - "ath.Season"
+          - "Season"
+        - - "ath.City"
+          - "City"
+        - - "ath.Sport"
+          - "Sport"
+        - - "ath.Event"
+          - "Event"
+        - - "ath.Medal"
+          - "Medal"
+    Filter Medal Winners:
+      type: "filter"
+      sources:
+      - "Athletes by country"
+      parameters:
+        componentName: "Filter Medal Winners"
+        filterConditions:
+        - - "Medal"
+          - "Not"
+          - "Equal to"
+          - "NA"
+        - - "Games"
+          - "Is"
+          - "Equal to"
+          - "2016 Summer"
+        combineCondition: "And"
+    Calculate Medal Points:
+      type: "calculator"
+      sources:
+      - "Filter Medal Winners"
+      parameters:
+        componentName: "Calculate Medal Points"
+        includeInputColumns: "Yes"
+        calculations:
+        - - "CASE WHEN \"Medal\" = 'Gold' THEN 3 WHEN \"Medal\" = 'Silver' THEN 2\
+            \ WHEN \"Medal\" = 'Bronze' THEN 1 ELSE 0 END"
+          - "Medal_Points"
+    Aggregate:
+      type: "aggregate"
+      sources:
+      - "Calculate Medal Points"
+      parameters:
+        componentName: "Aggregate"
+        groupings:
+        - "Name"
+        aggregations:
+        - - "Medal_Points"
+          - "Sum"
+        groupingType: "Group By"
+    Rank Athletes:
+      type: "rank"
+      sources:
+      - "Aggregate"
+      parameters:
+        componentName: "Rank Athletes"
+        includeInputColumns: "Yes"
+        partitionData:
+        orderingWithinPartitions:
+        - - "sum_Medal_Points"
+          - "Descending"
+        functions:
+        - - "Rank"
+          - "Rank"
+    Top 10 Athletes:
+      type: "filter"
+      sources:
+      - "Rank Athletes"
+      parameters:
+        componentName: "Top 10 Athletes"
+        filterConditions:
+        - - "Rank"
+          - "Is"
+          - "Less than or equal to"
+          - "10"
+        combineCondition: "And"
+    Cortex Completions:
+      type: "cortex-completions"
+      sources:
+      - "Top 10 Athletes"
+      parameters:
+        componentName: "Cortex Completions"
+        model: "mistral-7b"
+        systemPrompt: "You are a reporter on athletic events"
+        userPrompt: "Write a short bio on how this named athlete performed in the\
+          \ Summer 2016 Olympic Games"
+        inputs:
+        - - "Name"
+          - "Name"
+        temperature:
+        topP:
+        maxTokens:
+        includeInputColumns: "Yes"
+    Extract Nested Data:
+      type: "extract-nested-data-sf"
+      sources:
+      - "Cortex Completions"
+      parameters:
+        componentName: "Extract Nested Data"
+        includeInputColumns: "Yes"
+        columns:
+        - name: "created"
+          datatype: "NUMBER"
+          size: "0"
+          decimalPlaces: "0"
+          columnName: "completion_result"
+          aliasName: "created"
+          isArray: "false"
+          include: "false"
+        - name: "usage"
+          datatype: "VARIANT"
+          size: "0"
+          decimalPlaces: "0"
+          columnName: "completion_result"
+          aliasName: "usage"
+          isArray: "false"
+          include: "false"
+          childElements:
+          - name: "total_tokens"
+            datatype: "NUMBER"
+            size: "0"
+            decimalPlaces: "0"
+            columnName: "completion_result"
+            aliasName: "total_tokens"
+            isArray: "false"
+            include: "false"
+          - name: "prompt_tokens"
+            datatype: "NUMBER"
+            size: "0"
+            decimalPlaces: "0"
+            columnName: "completion_result"
+            aliasName: "prompt_tokens"
+            isArray: "false"
+            include: "false"
+          - name: "completion_tokens"
+            datatype: "NUMBER"
+            size: "0"
+            decimalPlaces: "0"
+            columnName: "completion_result"
+            aliasName: "completion_tokens"
+            isArray: "false"
+            include: "false"
+        - name: "model"
+          datatype: "VARCHAR"
+          size: "0"
+          decimalPlaces: "0"
+          columnName: "completion_result"
+          aliasName: "model"
+          isArray: "false"
+          include: "false"
+        - name: "choices"
+          datatype: "VARIANT"
+          size: "0"
+          decimalPlaces: "0"
+          columnName: "completion_result"
+          aliasName: "choices"
+          isArray: "true"
+          include: "false"
+          childElements:
+          - name: "choices-element"
+            datatype: "VARIANT"
+            size: "0"
+            decimalPlaces: "0"
+            columnName: "completion_result"
+            aliasName: "choices-element"
+            isArray: "false"
+            include: "false"
+            childElements:
+            - name: "messages"
+              datatype: "VARCHAR"
+              size: "0"
+              decimalPlaces: "0"
+              columnName: "completion_result"
+              aliasName: "messages"
+              isArray: "false"
+              include: "true"
+        outerJoin: "No"
+        inputAlias: "i"
+        arrayPrefix: "f"
+        castingMethod: "Fail on invalid data"
+        caseColumnAliasNames: "No"
+    Rewrite top_10_athletes_summer_2016:
+      type: "rewrite-table"
+      sources:
+      - "Top 10 Athletes"
+      parameters:
+        componentName: "Rewrite top_10_athletes_summer_2016"
+        warehouse: "[Environment Default]"
+        database: "[Environment Default]"
+        schema: "[Environment Default]"
+        targetTable: "top_10_athletes_summer_2016"
+        orderBy:
+design:
+  components:
+    olympic_athletes:
+      position:
+        x: 780
+        "y": 250
+      tempMetlId: 1
+    noc_region:
+      position:
+        x: 610
+        "y": 500
+      tempMetlId: 2
+    Correct Naming:
+      position:
+        x: 740
+        "y": 500
+      tempMetlId: 3
+    Athletes by country:
+      position:
+        x: 920
+        "y": 390
+      tempMetlId: 4
+    Filter Medal Winners:
+      position:
+        x: 1120
+        "y": 390
+      tempMetlId: 5
+    Calculate Medal Points:
+      position:
+        x: 1340
+        "y": 390
+      tempMetlId: 6
+    Aggregate:
+      position:
+        x: 1540
+        "y": 390
+      tempMetlId: 7
+    Rank Athletes:
+      position:
+        x: 1690
+        "y": 390
+      tempMetlId: 8
+    Top 10 Athletes:
+      position:
+        x: 1830
+        "y": 390
+      tempMetlId: 9
+    Cortex Completions:
+      position:
+        x: 2010
+        "y": 310
+      tempMetlId: 10
+    Extract Nested Data:
+      position:
+        x: 2170
+        "y": 310
+      tempMetlId: 11
+    Rewrite top_10_athletes_summer_2016:
+      position:
+        x: 2010
+        "y": 470
+      tempMetlId: 12
+  notes:
+    "1":
+      position:
+        x: 410
+        "y": 180
+      size:
+        height: 278
+        width: 300
+      theme: "white"
+      content: |-
+        Most successful Olympians
+
+        ![Image](https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg)
+    "2":
+      position:
+        x: 1050
+        "y": 270
+      size:
+        height: 228
+        width: 190
+      theme: "white"
+      content: "Only select medal winners from the 2016 Summer games"
+    "3":
+      position:
+        x: 1290
+        "y": 270
+      size:
+        height: 228
+        width: 170
+      theme: "white"
+      content: "Add a calculated point score, with 3 for a gold medal, 2 for a silver\
+        \ and 1 for a bronze"
+    "4":
+      position:
+        x: 1640
+        "y": 270
+      size:
+        height: 228
+        width: 300
+      theme: "white"
+      content: "Rank these athletes by the sum of their medal points descending, and\
+        \ select only the top 10"
