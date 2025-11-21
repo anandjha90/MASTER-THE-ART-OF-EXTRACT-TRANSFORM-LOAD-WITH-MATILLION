@@ -1,5 +1,12 @@
 Complete Project URL : https://exchange.matillion.com/data-productivity-cloud/pipeline/olympic-athlete-data-analysis/
 
-Datasets Link:
-s3://devrel.matillion.com/data/structured/olympics/athlete_events.csv.gz - all the athletes in every Olympic event, as a CSV separated by \r\n, with one header line
-s3://devrel.matillion.com/data/structured/olympics/noc_regions.csv.gz - the National Olympic Committee country codes, as a CSV separated by \r, with one header line
+Blog One Can Refer For Code : https://www.matillion.com/blog/who-are-the-most-successful-olympic-athletes-in-history
+
+Two datafiles will be used in this analysis:
+
+athlete_events.csv.gz - all the athletes in every Olympic event, as a CSV with lines separated by CRLF, and one header line. The granularity is one record per athlete, per Games.
+https://s3.eu-west-1.amazonaws.com/devrel.matillion.com/data/structured/olympics/athlete_events.csv.gz
+
+noc_regions.csv.gz - the National Olympic Committee country codes, as a CSV separated by a single CR character, and also with one header line. The granularity is one record per NOC country.
+https://s3.eu-west-1.amazonaws.com/devrel.matillion.com/data/structured/olympics/noc_regions.csv.gz
+
